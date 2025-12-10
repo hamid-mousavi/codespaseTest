@@ -17,7 +17,9 @@ services:
       - "6379:6379"
 
   backend:
-    build: ./backend/docker
+    build:
+      context: .
+      dockerfile: backend/docker/Dockerfile
     depends_on:
       - postgres
       - redis

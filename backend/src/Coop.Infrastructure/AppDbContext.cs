@@ -12,6 +12,7 @@ namespace Coop.Infrastructure
 
         public DbSet<User> Users => Set<User>();
         public DbSet<Role> Roles => Set<Role>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
         public DbSet<Member> Members => Set<Member>();
         public DbSet<Unit> Units => Set<Unit>();
         public DbSet<DebtPlan> DebtPlans => Set<DebtPlan>();

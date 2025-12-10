@@ -1,9 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Coop.Application.DTOs;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Security.Claims;
+using Coop.Api.Services;
 
 namespace Coop.Api.Controllers
 {
@@ -11,32 +9,40 @@ namespace Coop.Api.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _cfg;
-        public AuthController(IConfiguration cfg)
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
         {
-            _cfg = cfg;
+            _authService = authService;
         }
 
         [HttpPost("login")]
-        public ActionResult<AuthResponse> Login([FromBody] AuthRequest req)
+        public async Task<ActionResult<AuthResponse>> Login([FromBody] AuthRequest req)
         {
-            // NOTE: This is a stub. Replace with real validation + hashing.
-            if (req.Username != "admin" || req.Password != "admin") return Unauthorized();
+            var result = await _authService.LoginAsync(req.Username, req.Password);
+            if (result == null) return Unauthorized(new { error = "Invalid credentials" });
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_cfg.GetValue<string>("JWT__KEY") ?? "ReplaceWithASecretKeyAtLeast32Chars");
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "admin"), new Claim(ClaimTypes.Role, "Administrator") }),
-                Expires = DateTime.UtcNow.AddMinutes(60),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+            var (accessToken, refreshToken, expiresAt) = result.Value;
+            return Ok(new AuthResponse(accessToken, refreshToken, expiresAt));
+        }
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var accessToken = tokenHandler.WriteToken(token);
-            var refreshToken = Guid.NewGuid().ToString();
+        [HttpPost("refresh")]
+        public async Task<ActionResult<AuthResponse>> Refresh([FromBody] RefreshRequest req)
+        {
+            var result = await _authService.RefreshTokenAsync(req.Token);
+            if (result == null) return Unauthorized(new { error = "Invalid refresh token" });
 
-            return Ok(new AuthResponse(accessToken, refreshToken, tokenDescriptor.Expires!.Value));
+            var (accessToken, refreshToken, expiresAt) = result.Value;
+            return Ok(new AuthResponse(accessToken, refreshToken, expiresAt));
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout([FromBody] RefreshRequest req)
+        {
+            await _authService.RevokeTokenAsync(req.Token);
+            return Ok();
         }
     }
 }
+
+public record RefreshRequest(string Token);

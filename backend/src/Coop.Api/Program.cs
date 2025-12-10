@@ -4,6 +4,9 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
 using Coop.Infrastructure;
+using Coop.Api;
+using BC = BCrypt.Net.BCrypt;
+using Coop.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,10 +67,12 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// DI for services (placeholders)
+// DI for services
+builder.Services.AddScoped<IAuthService, Coop.Api.Services.AuthService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IDebtGeneratorService, DebtGeneratorService>();
-builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IDebtGeneratorService, Coop.Api.Services.DebtGeneratorService>();
+builder.Services.AddScoped<INotificationService, Coop.Api.Services.NotificationService>();
+            builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -86,6 +91,34 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Seed admin user if not exists
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var adminUserId = Guid.Parse("22222222-2222-2222-2222-222222222222");
+    var adminUser = db.Users.FirstOrDefault(u => u.Id == adminUserId);
+    if (adminUser == null)
+    {
+        var adminRole = db.Roles.FirstOrDefault(r => r.Name == "Administrator") ?? 
+            new Coop.Domain.Role { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), Name = "Administrator" };
+        
+        if (adminRole.Id == Guid.Empty) db.Roles.Add(adminRole);
+
+        var hashedPassword = BC.HashPassword("admin");
+        adminUser = new Coop.Domain.User
+        {
+            Id = adminUserId,
+            Username = "admin",
+            Email = "admin@coop.local",
+            PasswordHash = hashedPassword,
+            Roles = new List<Coop.Domain.Role> { adminRole }
+        };
+        db.Users.Add(adminUser);
+        await db.SaveChangesAsync();
+        Log.Information("Admin user seeded successfully");
+    }
+}
 
 app.Run();
 

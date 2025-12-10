@@ -27,13 +27,14 @@ services:
       - POSTGRES__CONNECTION=Host=postgres;Port=5432;Database=coopdb;Username=coop;Password=coop_password
       - JWT__KEY=ReplaceWithASecretKeyAtLeast32Chars
       - REDIS__CONNECTION=redis:6379
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "5000:80"
+      - "5000:8080"
 
   frontend:
     build: ./frontend
     ports:
-      - "3000:5173"
+      - "3000:80"
     depends_on:
       - backend
 

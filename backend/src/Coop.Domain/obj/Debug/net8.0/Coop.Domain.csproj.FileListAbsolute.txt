@@ -1,0 +1,12 @@
+/workspaces/codespaseTest/backend/src/Coop.Domain/bin/Debug/net8.0/Coop.Domain.deps.json
+/workspaces/codespaseTest/backend/src/Coop.Domain/bin/Debug/net8.0/Coop.Domain.dll
+/workspaces/codespaseTest/backend/src/Coop.Domain/bin/Debug/net8.0/Coop.Domain.pdb
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/Coop.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/Coop.Domain.AssemblyInfoInputs.cache
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/Coop.Domain.AssemblyInfo.cs
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/Coop.Domain.csproj.CoreCompileInputs.cache
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/Coop.Domain.sourcelink.json
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/Coop.Domain.dll
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/refint/Coop.Domain.dll
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/Coop.Domain.pdb
+/workspaces/codespaseTest/backend/src/Coop.Domain/obj/Debug/net8.0/ref/Coop.Domain.dll

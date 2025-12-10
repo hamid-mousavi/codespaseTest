@@ -1,0 +1,16 @@
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/bin/Debug/net8.0/Coop.Infrastructure.deps.json
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/bin/Debug/net8.0/Coop.Infrastructure.dll
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/bin/Debug/net8.0/Coop.Infrastructure.pdb
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/bin/Debug/net8.0/Coop.Domain.dll
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/bin/Debug/net8.0/Coop.Domain.pdb
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.csproj.AssemblyReference.cache
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.AssemblyInfoInputs.cache
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.AssemblyInfo.cs
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.csproj.CoreCompileInputs.cache
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.sourcelink.json
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Inf.13F93ED7.Up2Date
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.dll
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/refint/Coop.Infrastructure.dll
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/Coop.Infrastructure.pdb
+/workspaces/codespaseTest/backend/src/Coop.Infrastructure/obj/Debug/net8.0/ref/Coop.Infrastructure.dll

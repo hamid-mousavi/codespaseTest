@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Coop.Application.DTOs;
+using Coop.Api.Services;
 
 namespace Coop.Api.Controllers
 {

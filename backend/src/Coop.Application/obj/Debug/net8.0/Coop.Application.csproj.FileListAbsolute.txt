@@ -1,0 +1,16 @@
+/workspaces/codespaseTest/backend/src/Coop.Application/bin/Debug/net8.0/Coop.Application.deps.json
+/workspaces/codespaseTest/backend/src/Coop.Application/bin/Debug/net8.0/Coop.Application.dll
+/workspaces/codespaseTest/backend/src/Coop.Application/bin/Debug/net8.0/Coop.Application.pdb
+/workspaces/codespaseTest/backend/src/Coop.Application/bin/Debug/net8.0/Coop.Domain.dll
+/workspaces/codespaseTest/backend/src/Coop.Application/bin/Debug/net8.0/Coop.Domain.pdb
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.csproj.AssemblyReference.cache
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.AssemblyInfoInputs.cache
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.AssemblyInfo.cs
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.csproj.CoreCompileInputs.cache
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.sourcelink.json
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.App.F5021AAA.Up2Date
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.dll
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/refint/Coop.Application.dll
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/Coop.Application.pdb
+/workspaces/codespaseTest/backend/src/Coop.Application/obj/Debug/net8.0/ref/Coop.Application.dll

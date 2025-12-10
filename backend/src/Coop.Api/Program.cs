@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System;
 using System.Text;
 using Coop.Infrastructure;
 using Coop.Api;
@@ -42,7 +43,11 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Configuration: PostgreSQL
-var conn = builder.Configuration.GetValue<string>("POSTGRES__CONNECTION") ?? "Host=localhost;Database=coopdb;Username=coop;Password=coop";
+// Support both the environment-style key with double-underscores and the configuration-style key with colon.
+var conn = builder.Configuration.GetValue<string>("POSTGRES:CONNECTION")
+           ?? builder.Configuration.GetValue<string>("POSTGRES__CONNECTION")
+           ?? Environment.GetEnvironmentVariable("POSTGRES__CONNECTION")
+           ?? "Host=localhost;Database=coopdb;Username=coop;Password=coop";
 builder.Services.AddDbContext<AppDbContext>(opt => 
     opt.UseNpgsql(conn)
 );
@@ -96,6 +101,8 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    // For development/demo: create database schema if not exists. For production, prefer EF Migrations.
+    db.Database.EnsureCreated();
     var adminUserId = Guid.Parse("22222222-2222-2222-2222-222222222222");
     var adminUser = db.Users.FirstOrDefault(u => u.Id == adminUserId);
     if (adminUser == null)
@@ -122,27 +129,4 @@ using (var scope = app.Services.CreateScope())
 
 app.Run();
 
-// Minimal service implementations for compilation/demo purposes
-public interface IPaymentService
-{
-    Task<Guid> CreatePaymentAsync(Guid debtItemId, decimal amount, string method);
-}
-
-public class PaymentService : IPaymentService
-{
-    private readonly AppDbContext _db;
-    public PaymentService(AppDbContext db) { _db = db; }
-    public async Task<Guid> CreatePaymentAsync(Guid debtItemId, decimal amount, string method)
-    {
-        var payment = new Coop.Domain.Payment { Id = Guid.NewGuid(), DebtItemId = debtItemId, Amount = amount, PaidAt = DateTime.UtcNow, Method = method };
-        _db.Payments.Add(payment);
-        await _db.SaveChangesAsync();
-        return payment.Id;
-    }
-}
-
-public interface IDebtGeneratorService { Task GenerateForPlanAsync(Guid planId); }
-public class DebtGeneratorService : IDebtGeneratorService { public Task GenerateForPlanAsync(Guid planId) => Task.CompletedTask; }
-
-public interface INotificationService { Task SendAsync(string message, Guid? memberId = null); }
-public class NotificationService : INotificationService { public Task SendAsync(string message, Guid? memberId = null) => Task.CompletedTask; }
+// Service implementations are provided in the `Coop.Api.Services` namespace files.

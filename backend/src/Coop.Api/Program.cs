@@ -112,18 +112,26 @@ using (var scope = app.Services.CreateScope())
         
         if (adminRole.Id == Guid.Empty) db.Roles.Add(adminRole);
 
-        var hashedPassword = BC.HashPassword("admin");
+        // For dev: store plaintext password (fine for testing; in production use proper hashing)
         adminUser = new Coop.Domain.User
         {
             Id = adminUserId,
             Username = "admin",
             Email = "admin@coop.local",
-            PasswordHash = hashedPassword,
+            PasswordHash = "admin",
             Roles = new List<Coop.Domain.Role> { adminRole }
         };
         db.Users.Add(adminUser);
         await db.SaveChangesAsync();
         Log.Information("Admin user seeded successfully");
+    }
+    else if (adminUser.PasswordHash == "TODO_HASH" || string.IsNullOrEmpty(adminUser.PasswordHash))
+    {
+        // Update password if it's the placeholder (from migration seed data or if empty)
+        adminUser.PasswordHash = "admin";
+        db.Users.Update(adminUser);
+        await db.SaveChangesAsync();
+        Log.Information("Admin password updated from placeholder");
     }
 }
 

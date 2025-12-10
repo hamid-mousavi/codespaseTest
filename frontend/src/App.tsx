@@ -7,6 +7,7 @@ import Units from './pages/Units'
 import Debts from './pages/Debts'
 import Payments from './pages/Payments'
 import MemberPortal from './pages/MemberPortal'
+import RequireAuth from './components/RequireAuth'
 
 export default function App(){
   return (
@@ -16,12 +17,12 @@ export default function App(){
       </nav>
       <Routes>
         <Route path="/login" element={<Login/>} />
-        <Route path="/" element={<Dashboard/>} />
-        <Route path="/members" element={<Members/>} />
-        <Route path="/units" element={<Units/>} />
-        <Route path="/debts" element={<Debts/>} />
-        <Route path="/payments" element={<Payments/>} />
-        <Route path="/portal" element={<MemberPortal/>} />
+        <Route path="/" element={<RequireAuth><Dashboard/></RequireAuth>} />
+        <Route path="/members" element={<RequireAuth><Members/></RequireAuth>} />
+        <Route path="/units" element={<RequireAuth><Units/></RequireAuth>} />
+        <Route path="/debts" element={<RequireAuth><Debts/></RequireAuth>} />
+        <Route path="/payments" element={<RequireAuth><Payments/></RequireAuth>} />
+        <Route path="/portal" element={<RequireAuth><MemberPortal/></RequireAuth>} />
       </Routes>
     </div>
   )

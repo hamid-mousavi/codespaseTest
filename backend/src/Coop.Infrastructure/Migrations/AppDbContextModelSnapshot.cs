@@ -321,15 +321,6 @@ namespace Coop.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            Email = "admin@coop.local",
-                            PasswordHash = "TODO_HASH",
-                            Username = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Coop.Domain.DebtItem", b =>

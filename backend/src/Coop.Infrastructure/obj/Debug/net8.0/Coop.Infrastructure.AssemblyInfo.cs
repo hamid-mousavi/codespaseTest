@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Coop.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1cbd9b42df6d6e4e108ecea19ba6cba1a1674458")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+871d6cdf1d9421b1199bad537da87dcc331949b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Coop.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Coop.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -6,6 +6,7 @@ import { login } from '../store/slices/authSlice'
 export default function Login(){
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const dispatch = useAppDispatch()
   const auth = useAppSelector(s => s.auth)
   const navigate = useNavigate()
@@ -20,12 +21,15 @@ export default function Login(){
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrorMessage(null)
     try {
       await dispatch(login({ username, password })).unwrap()
       navigate(from, { replace: true })
-    } catch (err) {
-      // basic error handling
-      window.alert('Login failed')
+    } catch (err: any) {
+      // Show server-provided error when available for easier debugging
+      const serverMsg = err?.response?.data?.error || err?.response?.data?.message
+      const message = serverMsg || err?.message || 'Login failed'
+      setErrorMessage(message)
     }
   }
 
@@ -44,6 +48,9 @@ export default function Login(){
             {auth.loading ? 'Signing in...' : 'Sign in'}
           </button>
         </div>
+        {errorMessage && (
+          <div style={{ marginTop: 12, color: 'crimson' }}>{errorMessage}</div>
+        )}
       </form>
     </div>
   )

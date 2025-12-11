@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coop Portal</title>
+    <script type="module" crossorigin src="/assets/index-CrNovmus.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CylWJBSg.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Show runtime JS errors on the page to aid debugging in dev environments
+      window.addEventListener('error', function (e) {
+        try {
+          const el = document.getElementById('root') || document.body;
+          const pre = document.createElement('pre');
+          pre.style.whiteSpace = 'pre-wrap';
+          pre.style.background = '#fee';
+          pre.style.color = '#900';
+          pre.style.padding = '12px';
+          pre.style.border = '1px solid #900';
+          pre.textContent = 'JavaScript error: ' + (e && e.message ? e.message : String(e));
+          el.innerHTML = '';
+          el.appendChild(pre);
+        } catch {}
+      });
+      window.addEventListener('unhandledrejection', function (e) {
+        try {
+          const el = document.getElementById('root') || document.body;
+          const pre = document.createElement('pre');
+          pre.style.whiteSpace = 'pre-wrap';
+          pre.style.background = '#fee';
+          pre.style.color = '#900';
+          pre.style.padding = '12px';
+          pre.style.border = '1px solid #900';
+          pre.textContent = 'Unhandled promise rejection: ' + (e && e.reason ? (e.reason.message || String(e.reason)) : String(e));
+          el.innerHTML = '';
+          el.appendChild(pre);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>

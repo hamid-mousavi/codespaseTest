@@ -34,24 +34,26 @@ export default function Login(){
   }
 
   return (
-    <div style={{ maxWidth: 420, margin: '2rem auto' }}>
-      <h2>Sign in</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 8 }}>
-          <input value={username} onChange={e => setUsername(e.target.value)} placeholder="username" style={{ width: '100%', padding: 8 }} />
-        </div>
-        <div style={{ marginBottom: 12 }}>
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="password" style={{ width: '100%', padding: 8 }} />
-        </div>
-        <div>
-          <button type="submit" disabled={auth.loading} style={{ padding: '8px 16px' }}>
-            {auth.loading ? 'Signing in...' : 'Sign in'}
-          </button>
-        </div>
-        {errorMessage && (
-          <div style={{ marginTop: 12, color: 'crimson' }}>{errorMessage}</div>
-        )}
-      </form>
+    <div style={{ maxWidth: 480, margin: '2rem auto' }}>
+      <div className="form">
+        <h2>Sign in</h2>
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginTop: 8 }}>
+            <input className="input" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" />
+          </div>
+          <div style={{ marginTop: 12 }}>
+            <input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
+          </div>
+          <div style={{ marginTop: 14 }}>
+            <button className="btn" type="submit" disabled={auth.loading}>
+              {auth.loading ? 'Signing in...' : 'Sign in'}
+            </button>
+          </div>
+          {errorMessage && (
+            <div className="error">{errorMessage}</div>
+          )}
+        </form>
+      </div>
     </div>
   )
 }

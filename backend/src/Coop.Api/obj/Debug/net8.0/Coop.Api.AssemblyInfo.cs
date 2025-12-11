@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Coop.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+871d6cdf1d9421b1199bad537da87dcc331949b7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09d95caca6721aa1aa1e8396c64d20d8c9a8a5d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Coop.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Coop.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

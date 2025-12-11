@@ -8,6 +8,7 @@ import Debts from './pages/Debts'
 import Payments from './pages/Payments'
 import MemberPortal from './pages/MemberPortal'
 import RequireAuth from './components/RequireAuth'
+import Layout from './components/Layout'
 
 export default function App(){
   return (
@@ -17,12 +18,12 @@ export default function App(){
       </nav>
       <Routes>
         <Route path="/login" element={<Login/>} />
-        <Route path="/" element={<RequireAuth><Dashboard/></RequireAuth>} />
-        <Route path="/members" element={<RequireAuth><Members/></RequireAuth>} />
-        <Route path="/units" element={<RequireAuth><Units/></RequireAuth>} />
-        <Route path="/debts" element={<RequireAuth><Debts/></RequireAuth>} />
-        <Route path="/payments" element={<RequireAuth><Payments/></RequireAuth>} />
-        <Route path="/portal" element={<RequireAuth><MemberPortal/></RequireAuth>} />
+        <Route path="/" element={<RequireAuth><Layout><Dashboard/></Layout></RequireAuth>} />
+        <Route path="/members" element={<RequireAuth><Layout><Members/></Layout></RequireAuth>} />
+        <Route path="/units" element={<RequireAuth><Layout><Units/></Layout></RequireAuth>} />
+        <Route path="/debts" element={<RequireAuth><Layout><Debts/></Layout></RequireAuth>} />
+        <Route path="/payments" element={<RequireAuth><Layout><Payments/></Layout></RequireAuth>} />
+        <Route path="/portal" element={<RequireAuth><Layout><MemberPortal/></Layout></RequireAuth>} />
       </Routes>
     </div>
   )

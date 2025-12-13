@@ -36,5 +36,29 @@ namespace Coop.Api.Controllers
             await _db.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAll), new { id = e.Id }, _mapper.Map<UnitDto>(e));
         }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UnitCreateDto dto)
+        {
+            var unit = await _db.Units.FirstOrDefaultAsync(u => u.Id == id);
+            if (unit == null) return NotFound();
+
+            _mapper.Map(dto, unit);
+            await _db.SaveChangesAsync();
+            return Ok(_mapper.Map<UnitDto>(unit));
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var unit = await _db.Units.FirstOrDefaultAsync(u => u.Id == id);
+            if (unit == null) return NotFound();
+
+            _db.Units.Remove(unit);
+            await _db.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

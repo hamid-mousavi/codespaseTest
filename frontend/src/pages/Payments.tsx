@@ -1,40 +1,57 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Card from '../components/Card'
 import Table from '../components/Table'
 import api from '../services/api'
 
-type Payment = { id: string; member?: string; amount?: number; date?: string; method?: string }
+type Payment = { id: string; debtItemId: string; amount: number; paidAt: string; method: string; transactionRef: string | null }
 
-export default function Payments(){
+export default function Payments() {
   const [payments, setPayments] = useState<Payment[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    let mounted = true
+  const fetchPayments = useCallback(() => {
     setLoading(true)
-    // no dedicated GET payments endpoint in backend; try /payments/list or fallback to empty
-    api.get('/payments').then(r => { if(mounted) setPayments(r.data) }).catch(() => { /* ignore */ }).finally(() => { if(mounted) setLoading(false) })
-    return () => { mounted = false }
+    api.get('/payments') // Assuming /payments returns a list of PaymentDto
+      .then(res => { setPayments(res.data) })
+      .catch(err => { setError(err?.response?.data?.error || err.message) })
+      .finally(() => { setLoading(false) })
   }, [])
+
+  useEffect(() => {
+    fetchPayments()
+  }, [fetchPayments])
+
+  const totalAmount = payments.reduce((s, p) => s + p.amount, 0)
+
+  const paymentColumns = [
+    { key: 'id', title: 'ID' },
+    { key: 'debtItemId', title: 'Debt Item ID' },
+    { key: 'amount', title: 'Amount' },
+    { key: 'paidAt', title: 'Date' },
+    { key: 'method', title: 'Method' },
+    { key: 'transactionRef', title: 'Ref' },
+  ]
 
   return (
     <div>
-      <div className="card-grid" style={{marginBottom:18}}>
-        <Card title="This Month">
-          <div style={{fontSize:22,fontWeight:700}}>{payments.reduce((s,p)=>s+(p.amount||0),0)}</div>
-          <div className="muted">Total collected</div>
+      <div className="card-grid" style={{ marginBottom: 18 }}>
+        <Card title="Total Collected">
+          <div style={{ fontSize: 28, fontWeight: 700 }}>{totalAmount.toLocaleString()}</div>
+          <div className="muted">Total amount from {payments.length} transactions</div>
         </Card>
-        <Card title="Transactions">
-          <div style={{fontSize:22,fontWeight:700}}>{payments.length}</div>
-          <div className="muted">Processed</div>
+        <Card title="Average Payment">
+          <div style={{ fontSize: 28, fontWeight: 700 }}>{payments.length > 0 ? (totalAmount / payments.length).toLocaleString() : '0'}</div>
+          <div className="muted">Average amount per transaction</div>
         </Card>
       </div>
 
-      <Card>
+      <Card title="All Payments">
         {loading && <div>Loading...</div>}
         {error && <div className="error">{error}</div>}
-        <Table columns={[{key:'id',title:'ID'},{key:'member',title:'Member'},{key:'amount',title:'Amount'},{key:'date',title:'Date'},{key:'method',title:'Method'}]} data={payments as any} />
+        {!loading && !error && (
+          <Table columns={paymentColumns as any} data={payments as any} />
+        )}
       </Card>
     </div>
   )

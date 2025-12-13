@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Card from '../components/Card'
 import Table from '../components/Table'
 import api from '../services/api'
 
-type Member = { id: string | number; fullName?: string; unit?: string; phone?: string }
+type Member = { id: string; fullName: string; nationalCode: string }
 
 export default function Members(){
   const [members, setMembers] = useState<Member[]>([])
@@ -34,7 +35,7 @@ export default function Members(){
 
       <Card>
         {error && <div className="error">{error}</div>}
-        <Table columns={[{key:'id',title:'ID'},{key:'fullName',title:'Name'},{key:'unit',title:'Unit'},{key:'phone',title:'Phone'}]} data={members as any} />
+        <Table columns={[{key:'id',title:'ID'},{key:'fullName',title:'Name'},{key:'nationalCode',title:'National Code'},{key:'actions',title:'Actions',render: (m: Member) => <Link to={`/members/${m.id}`}>View Details</Link>}]} data={members as any} />
       </Card>
     </div>
   )

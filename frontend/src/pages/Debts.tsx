@@ -5,7 +5,7 @@ import SimpleChart from '../components/SimpleChart'
 import api from '../services/api'
 
 type DebtSummary = { totalDebt: number; totalPaid: number; debtors: number }
-type DebtItem = { id: string; unit?: string; amount?: number; dueDate?: string; paid?: boolean }
+type DebtItem = { id: string; unitId: string; amount: number; dueDate: string; paid: boolean }
 
 export default function Debts(){
   const [summary, setSummary] = useState<DebtSummary | null>(null)
@@ -49,7 +49,7 @@ export default function Debts(){
         {loading && <div>Loading...</div>}
         {error && <div className="error">{error}</div>}
         {!loading && !error && (
-          <Table columns={[{key:'id',title:'ID'},{key:'unit',title:'Unit'},{key:'amount',title:'Amount'},{key:'dueDate',title:'Due'}]} data={debtItems as any} />
+          <Table columns={[{key:'id',title:'ID'},{key:'unitId',title:'Unit ID'},{key:'amount',title:'Amount'},{key:'dueDate',title:'Due Date'},{key:'paid',title:'Paid', render: (d: DebtItem) => d.paid ? 'Yes' : 'No'}]} data={debtItems as any} />
         )}
       </Card>
     </div>

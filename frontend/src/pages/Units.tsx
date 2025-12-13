@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import api from '../services/api'
 
-type Unit = { id: string; owner?: string; area?: number }
+type Unit = { id: string; memberId: string; block: string; phase: string; area: number; ownershipShare: number }
 
 export default function Units(){
   const [units, setUnits] = useState<Unit[]>([])
@@ -25,9 +25,9 @@ export default function Units(){
         {loading && <div>Loading...</div>}
         {error && <div className="error">{error}</div>}
         {!loading && !error && units.map(u => (
-          <Card key={u.id} title={u.id}>
-            <div style={{fontWeight:700}}>{u.owner}</div>
-            <div className="muted">Area: {u.area || '—'} m²</div>
+          <Card key={u.id} title={`Unit ${u.block}-${u.phase}`}>
+            <div style={{fontWeight:700}}>Block: {u.block} / Phase: {u.phase}</div>
+            <div className="muted">Area: {u.area} m² | Share: {u.ownershipShare}%</div>
           </Card>
         ))}
       </div>

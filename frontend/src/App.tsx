@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Members from './pages/Members'
+import MemberDetail from './pages/MemberDetail'
 import Units from './pages/Units'
 import Debts from './pages/Debts'
 import Payments from './pages/Payments'
@@ -20,6 +21,7 @@ export default function App(){
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<RequireAuth><Layout><Dashboard/></Layout></RequireAuth>} />
         <Route path="/members" element={<RequireAuth><Layout><Members/></Layout></RequireAuth>} />
+        <Route path="/members/:id" element={<RequireAuth><Layout><MemberDetail/></Layout></RequireAuth>} />
         <Route path="/units" element={<RequireAuth><Layout><Units/></Layout></RequireAuth>} />
         <Route path="/debts" element={<RequireAuth><Layout><Debts/></Layout></RequireAuth>} />
         <Route path="/payments" element={<RequireAuth><Layout><Payments/></Layout></RequireAuth>} />
